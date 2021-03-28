@@ -1,0 +1,15 @@
+
+= variable
+
+[source,shell script]
+----
+# query
+show variables  like '%expire_logs_days%';
+
+# set
+set expire_logs_days=15;
+
+# set global
+set global expire_logs_days=15;
+
+----

@@ -1,0 +1,51 @@
+显示表
+	show tables;
+
+创建表
+	creat table tablename;
+	create table cdat(
+		id			INT(20) not null AUTO_INCREMENT,
+		localt		char(20) not null,
+		cd			char(5) not null,
+		snosat		char(2) not null,
+		rnorec		char(3) not null,
+		primary key (id)
+	);
+
+添加唯一性约束
+	alter table rest_User 
+	add constraint name unique (user_name)
+
+添加外键
+	ALTER TABLE rest_Order
+	ADD FOREIGN KEY OrderToUser(order_user)
+	REFERENCES rest_User(user_id)
+
+添加外键（同时添加索引）
+	alter table rest_Order 
+	add constraint name
+	foreign key (order_chif) 
+	references rest_User (user_id)
+
+查看外键
+	SHOW CREATE TABLE rest_Order
+
+删除外键
+	ALTER TABLE user DROP FOREIGN KEY OrderToUser
+
+删除约束
+	alter table rest_User 
+	drop index UK_k7rhlfyvuw08kf9ab42dlww6l
+
+表的详细描述 
+	describe tablename;
+
+注释
+	create table test(
+		id int not null default 0 comment '用户 id'
+	)
+	
+	alter table test
+	change column id id int not null default 0 comment '测试表 id'
+	
+	show full columns from test;

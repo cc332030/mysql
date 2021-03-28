@@ -1,0 +1,34 @@
+
+= mysql install
+
+[source,cmd]
+----
+@echo off
+
+echo.
+mysqld -install && (
+	echo.
+	echo 服务安装失败！
+	pause >nul
+	exit
+)
+
+echo.
+echo 服务安装成功，按任意键初始化！
+echo.
+
+pause >nul
+
+mysqld --initialize-insecure && (
+	echo.
+	echo 初始化失败！
+	pause >nul
+	exit
+)
+
+echo.
+echo 初始化成功！
+
+pause >nul
+
+----

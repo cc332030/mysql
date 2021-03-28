@@ -1,0 +1,18 @@
+
+= mysqldump
+
+逻辑备份，单线程
+
+== 命令
+
+- --single-transaction
+
+    一致性备份
+
+- --skip-opt
+
+    禁用 --opt 选项，--opt 包括锁表等操作
+
+- --master-data=2
+
+

@@ -1,0 +1,22 @@
+设置默认引擎
+	my.ini
+	default-storage-engine=InnoDB
+
+查看数据库默认引擎
+	show engines;
+
+建表时使用
+	create table mytbl(   
+		id int primary key,   
+		name varchar(50)   
+	)type=MyISAM;
+
+建表后修改
+	alter table mytbl2 type = InnoDB;
+
+查看修改结果
+	方式1：
+		show table status from mytest;
+
+　　方式2：
+		show create table table_name

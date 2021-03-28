@@ -1,0 +1,8 @@
+
+= deadlock
+
+[source,sql]
+----
+show engine innodb status;
+
+----

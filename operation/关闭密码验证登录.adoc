@@ -1,0 +1,19 @@
+
+= mysql 本地无法登录
+
+先添加配置，重启
+[source,text]
+----
+[mysqld]
+skip-grant-tables
+
+----
+
+[source,shell script]
+----
+flush privileges;
+alter user 'root'@'localhost' identified by '123456';
+
+----
+
+再移除配置重启

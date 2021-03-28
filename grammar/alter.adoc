@@ -1,0 +1,23 @@
+
+= alter
+
+修改表名，可以使用 sql 拼接
+[source,sql]
+----
+ALTER TABLE s_stock_operate_materiel RENAME TO S_STOCK_OPERATE_MATERIEL;
+
+----
+
+
+批量修改表名
+[source,sql]
+----
+SELECT
+  CONCAT('ALTER TABLE ', TABLE_NAME, ' RENAME TO ', upper(TABLE_NAME), ';')
+FROM
+  information_schema.`TABLES`
+WHERE
+    TABLE_SCHEMA = 'test'
+;
+
+----

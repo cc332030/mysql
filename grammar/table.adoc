@@ -1,0 +1,17 @@
+
+= 表
+
+== 临时表
+
+只在当前连接中可使用，可用于批量更新表数据
+
+TEMPORARY 字段，其他和正常表一样
+
+[source,sql]
+----
+CREATE TEMPORARY TABLE SalesSummary
+(
+    id int,
+    PRIMARY KEY (id)
+)
+----

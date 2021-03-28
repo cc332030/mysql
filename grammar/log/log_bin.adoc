@@ -1,0 +1,33 @@
+
+= log bin
+
+== 配置
+
+[source,text]
+----
+[mysqld]
+
+#log
+log-error=/data/log_mysql/mysql_3306_log/log-error
+general_log_file=/data/log_mysql/mysql_3306_log/general_log_file
+binlog_format=mixed
+log-bin=mysql-bin
+log-bin-index=/data/log_mysql/mysql_3306_log/log-bin-index
+relay_log=/data/log_mysql/mysql_3306_log/relay-log
+max_binlog_size=1G
+log_slave_updates
+expire_logs_days=15
+
+----
+
+== 删除多余日志
+
+[source,shell script]
+----
+# query
+show variables  like '%expire_logs_days%';
+
+set GLOBAL expire_logs_days=15;
+flush logs;
+
+----

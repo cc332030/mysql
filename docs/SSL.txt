@@ -1,0 +1,46 @@
+
+在MySQL5.7安装初始化阶段，我们发现比之前版本多了一步操作，而这个操作就是安装SSL的
+执行
+
+mysql_ssl_rsa_setup 
+
+show global variables like '%ssl%';
+
+1、修改配置文件
+
+[mysqld]
+ssl-ca=c332030.com.ca
+ssl-cert=c332030.com.crt
+ssl-key=c332030.com.key
+
+2、执行 mysql_ssl_rsa_setup
+
+3、以非 SSL 方式连接
+mysql -u root -p --ssl-mode=DISABLED
+查看连接信息：\s
+
+4、以 SSL 方式连接
+mysql -u root -p --ssl-mode=REQUIRED
+mysql -h192.168.20.246 -P 3306 -uhrb -p --ssl-ca=./ca.pem --ssl-cert=./client-cert.pem --ssl-key=./client-key.pem
+mysql -u root -p --ssl-ca=./ca.pem --ssl-cert=./server-cert.pem --ssl-key=./server-key.pem
+mysql -u root -p --ssl-ca=D:\Program\Study\Database\MySQL\c332030.com.ca --ssl-cert=D:\Program\Study\Database\MySQL\c332030.com.crt --ssl-key=D:\Program\Study\Database\MySQL\c332030.com.key
+mysql -u root -p --ssl-mode=VERIFY_CA --ssl-ca=ca.pem --ssl-cert=server-cert.pem --ssl-key=server-key.pem
+
+5、必须以 SSL 连接
+create user hy@'%' identified by 'XXxx_123' require ssl;
+grant select on *.* to hy@'%';
+
+
+
+
+[root mysql_data]# ll *.pem
+-rw------- 1 mysql mysql 1675 Jun 12 17:22 ca-key.pem         #CA私钥
+-rw-r--r-- 1 mysql mysql 1074 Jun 12 17:22 ca.pem             #自签的CA证书，客户端连接也需要提供
+-rw-r--r-- 1 mysql mysql 1078 Jun 12 17:22 client-cert.pem    #客户端连接服务器端需要提供的证书文件
+-rw------- 1 mysql mysql 1675 Jun 12 17:22 client-key.pem     #客户端连接服务器端需要提供的私钥文件
+-rw------- 1 mysql mysql 1675 Jun 12 17:22 private_key.pem    #私钥/公钥对的私有成员
+-rw-r--r-- 1 mysql mysql 451 Jun 12 17:22  public_key.pem     #私钥/公钥对的共有成员
+-rw-r--r-- 1 mysql mysql 1078 Jun 12 17:22 server-cert.pem    #服务器端证书文件
+-rw------- 1 mysql mysql 1675 Jun 12 17:22 server-key.pem     #服务器端私钥文件
+
+

@@ -1,0 +1,130 @@
+
+/etc/my.cnf
+
+
+1、数据库目录
+/var/lib/mysql/
+2、配置文件
+/usr/share/mysql（mysql.server命令及配置文件）
+3、相关命令
+/usr/bin(mysqladmin mysqldump等命令)
+4、启动脚本
+/etc/rc.d/init.d/（启动脚本文件mysql的目录）
+
+
+
+yum install libaio
+
+rpm -ivh mysql-community-common-5.7.23-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-5.7.23-1.el7.x86_64.rpm
+rpm -ivh mysql-community-client-5.7.23-1.el7.x86_64.rpm
+rpm -ivh mysql-community-server-5.7.23-1.el7.x86_64.rpm
+
+
+# 添加到系统服务
+systemctl start mysqld.service
+
+
+chkconfig mysqld on
+
+启动：
+
+使用 service 启动：service mysqld start
+使用 mysqld 脚本启动：/etc/inint.d/mysqld start
+使用 safe_mysqld 启动：safe_mysqld&
+
+停止：
+使用 service 启动：service mysqld stop
+使用 mysqld 脚本启动：/etc/inint.d/mysqld stop
+mysqladmin shutdown
+
+重启：
+使用 service 启动：service mysqld restart
+
+
+日志
+less /var/log/mysqld.log
+
+
+
+设置校验密码的标准为密码长度
+set global validate_password_policy=0;
+
+修改密码：
+set password = password('你的密码');
+
+
+
+0 or LOW	Length
+1 or MEDIUM	Length; numeric, lowercase/uppercase, and special characters
+2 or STRONG	Length; numeric, lowercase/uppercase, and special characters; dictionary file
+
+
+设置密码最小长度,设置外部远程访问权限：
+set global validate_password_length=1;
+set global validate_password_policy=0;
+grant all privileges on *.* to 'root' @'%' identified by '123456';
+flush privileges;
+
+
+
+
+1.	my.ini
+	// 5.7.18 无需，跳过此步
+
+	[mysqld]
+	basedir = C:/_WEB/MySQL
+	datadir = C:/_WEB/MySQL/data
+
+2.	创建文件夹 data
+	// 5.7.18 无需，跳过此步
+
+3.	安装服务
+	mysqld -install
+
+4.	初始化
+	// 5.6.36 无需，跳过此步
+	// 无密码
+		mysqld --initialize-insecure
+	// 随机密码
+		mysqld --initialize
+	// 添加用户名
+	mysqld --initialize-insecure --user=mysql
+
+5.	运行服务
+	net start mysql
+
+6.	配置
+	mysql -u root -p
+	set password = password('332030');
+
+0.	卸载服务
+	net stop mysql
+	mysqld -remove
+
+
+
+
+Other：
+
+mysqld --console
+mysqld --initialize --explicit_defaults_for_timestamp
+mysqld --explicit_defaults_for_timestamp
+mysqld --initialize --user=mysql --console
+	localhost: khiKalH!3qhw
+
+
+[mysqld]
+	loose-default-character-set = utf8
+	basedir = C:/_WEB/MySQL
+	datadir = C:/_WEB/MySQL/data
+	port = 3307
+	sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+	character_set_server = utf8
+	[client]
+	loose-default-character-set = utf8
+
+	注：
+		basedir 是 mysql 的根目录
+		datadir 是 mysql的数据存储目录。
+		注意防止端口号冲突。

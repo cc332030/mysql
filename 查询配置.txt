@@ -1,0 +1,3 @@
+
+查询编码
+	show variables like 'character%';

@@ -1,0 +1,10 @@
+
+= sql in
+
+按照指定顺序排序
+
+[source,sql]
+----
+select * from test where id in(3,1,5) order by field(id,3,1,5);
+
+----

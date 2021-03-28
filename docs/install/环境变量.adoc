@@ -1,0 +1,13 @@
+
+= mysql 环境变量
+
+[source,cmd]
+----
+@echo off
+
+::MySQL
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Environment" /f /v "Path" /t REG_EXPAND_SZ /d "%Path%;%~dp0bin"
+
+start SystemPropertiesAdvanced.exe
+
+----

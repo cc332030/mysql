@@ -1,0 +1,17 @@
+
+= 查询sql执行过程
+
+[source,shell script]
+----
+# 开启
+set profiling = 1;
+
+# 执行sql
+
+# 显示 sql
+show profiles;
+
+# 根据 id 显示查询过程
+show profile cpu,block io for query 1;
+
+----

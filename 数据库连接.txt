@@ -1,0 +1,14 @@
+
+	private String driverName="com.mysql.jdbc.Driver";
+//	private String dbURL="jdbc:mysql://localhost:3306";
+//	private String dbURL="jdbc:mysql:///mysql";		// 连接本地默认端口下的 mysql 数据库
+	private String dbURL="jdbc:mysql://";			// 本地默认端口，不选择数据库
+	private String userName="root";
+	private String userPwd="332030";
+	
+	
+	uft-8 连接
+	jdbc:mysql:///hibernate?useUnicode=true&amp;characterEncoding=UTF-8
+	
+	自动创建数据库
+	jdbc:mysql:///hibernate?createDatabaseIfNotExist=true

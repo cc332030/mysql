@@ -1,0 +1,120 @@
+[mysql]
+socket                                  = /home/mysql/mysql.sock
+default-character-set                   = utf8
+	
+[mysqld]
+#
+# per instance settings
+#
+
+server-id                               = 243 
+port                                    = 3306
+log_error                               = /home/mysql/error.log
+log_warnings                            = 1
+user                                    = mysql
+datadir                                 = /home/mysql
+tmpdir                                  = /home/mysql
+slave-load-tmpdir                       = /home/mysql
+socket                                  = /home/mysql/mysql.sock
+pid-file                                = /home/mysql/mysql.pid
+character-set-server                    = utf8
+
+innodb_data_home_dir                    = /home/mysql
+innodb_data_file_path                   = ibdata1:100M:autoextend
+innodb_log_group_home_dir               = /home/mysql
+innodb_log_files_in_group               = 3
+#缓存innodb表的索引，数据，插入数据时的缓冲
+innodb_buffer_pool_size                 = 3G
+transaction-isolation                   = REPEATABLE-READ
+innodb_log_file_size                    = 256M
+innodb_log_buffer_size                  = 128M
+default-storage-engine 			= InnoDB 
+
+# InnoDB 用来保存数据字典信息和其他内部数据结构的内存池的大小，单位是 byte，参数默认值为8M。数据库中的表数量越多，参数值应该越大，如果 InnoDB 用完了内存池中的内存，就会从操作系统中分配内存
+innodb_additional_mem_pool_size         = 48M
+innodb_flush_log_at_trx_commit          = 1
+innodb_file_per_table                   = 1
+innodb_lock_wait_timeout                = 20
+innodb_buffer_pool_instances            = 4
+innodb_flush_method                     = O_DIRECT
+innodb_adaptive_hash_index_partitions   = 4
+innodb_read_io_threads                  = 8
+innodb_write_io_threads                 = 8
+innodb_io_capacity                      = 1000
+innodb_max_dirty_pages_pct              = 70
+innodb_sync_spin_loops                  = 10
+innodb_file_format                      = Barracuda
+innodb_file_format_max                  = Barracuda
+innodb_stats_on_metadata                = OFF
+
+thread_handling = one-thread-per-connection   #开启线程池
+thread_pool_oversubscribe = 5
+
+relay_log_purge                         = 1
+
+expand_fast_index_creation              = 1
+
+back_log                                = 400
+max_connections                         = 2048
+max_connect_errors                      = 999999999
+thread_cache_size                       = 64     
+table_open_cache                        = 2048
+interactive_timeout                     = 3600
+wait_timeout                            = 28800
+
+
+sort_buffer_size                        = 1M
+read_buffer_size                        = 4M
+join_buffer_size                        = 4M
+read_rnd_buffer_size                    = 24M
+group_concat_max_len                    = 64K
+key_buffer_size                         = 1024M
+query_cache_size                        = 256M   
+query_cache_limit                       = 2M     
+query_cache_type                        = 1      
+
+max_tmp_tables                          = 64
+tmp_table_size                          = 512M
+max_heap_table_size                     = 512M
+
+
+
+#
+# common mysqld settings
+#
+
+
+#启用gtid类型，否则就是普通的复制架构
+gtid-mode				= on
+#强制GTID的一致性
+enforce-gtid-consistency		= true
+
+#忽略大小写
+lower_case_table_names			= 1
+
+#允许写操作 同步时改成1，0可写操作，1 只允许root写操作，其他用户不允许写操作。
+read_only                               = 0 
+expire_logs_days                        = 14
+max_allowed_packet                      = 64M        
+
+
+skip-external-locking               
+skip-name-resolve
+
+slow_query_log                          = 1      
+long_query_time                         = 1     
+slow_query_log_file                     = slow.log 
+#记录没有使用索引的语句：一般不开启影响性能
+log_queries_not_using_indexes           = OFF
+
+log-bin                                 = mysql-bin
+relay-log                               = relay-bin
+binlog_format                           = ROW
+binlog_cache_size                       = 1M   
+log-slave-updates                       
+skip-slave-start
+replicate-same-server-id                = 0 
+
+delay_key_write                         = OFF
+myisam_repair_threads                   = 1 
+myisam-recover                          = BACKUP

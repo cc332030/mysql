@@ -1,0 +1,14 @@
+
+= mysql backup
+
+- mysqldump
+
+    逻辑备份，单线程
+
+- mydumper
+
+    逻辑备份，多线程
+
+- xtrabackup
+
+    物理备份

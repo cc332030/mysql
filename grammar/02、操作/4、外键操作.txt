@@ -1,0 +1,9 @@
+
+查看是否使用外键
+	select @@foreign_key_checks;
+
+禁用外键约束
+	set foreign_key_checks = 0;
+
+打开外键约束
+	set foreign_key_checks = 1;

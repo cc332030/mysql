@@ -1,0 +1,9 @@
+
+= mysql 引擎
+
+查看引擎状态
+[source,sql]
+----
+show engine innodb status;
+
+----

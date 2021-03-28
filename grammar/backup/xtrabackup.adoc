@@ -1,0 +1,13 @@
+
+= xtrabackup
+
+物理备份
+
+== 安装
+
+[source,shell script]
+----
+wget https://www.percona.com/downloads/Percona-XtraBackup-8.0/Percona-XtraBackup-8.0.14/binary/redhat/8/x86_64/percona-xtrabackup-80-8.0.14-1.el8.x86_64.rpm
+
+
+----

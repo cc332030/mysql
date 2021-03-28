@@ -1,0 +1,5 @@
+
+com.mysql.cj.exceptions.InvalidConnectionAttributeException: The server time zone value '?D1ú±ê×?ê±??' is unrecognized or represents more than one time zone.?
+You must configure either the server or JDBC driver (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.
+
+xxx?serverTimezone=UTC

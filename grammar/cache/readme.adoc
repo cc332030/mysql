@@ -1,0 +1,20 @@
+
+= 缓存
+
+== 不使用缓存
+
+=== SQL_NO_CACHE
+
+[source,sql]
+----
+SELECT SQL_NO_CACHE 1;
+
+----
+
+=== query_cache_type
+
+[source,sql]
+----
+SET SESSION query_cache_type=0;
+
+----
