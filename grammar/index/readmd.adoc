@@ -1,6 +1,25 @@
 
 = 索引
 
+== 类型
+
+. BTree索引
+. HASH索引
+. FullText索引（仅MyISAM支持）
+.. 优点
+
+    对于较长的字符串，查询效率要比like %...%效率更高
+
+.. 缺点
+
+    消耗的资源较大
+
+. RTree索引
+
+在 MySQL5.0.16 之前，仅MyISAM支持，之后BDB，InnoDB等其他存储引擎也支持
+
+RTree是BTree的多维版
+
 == 失效情况
 
 * 存在 or
