@@ -1,0 +1,85 @@
+
+= procedure 存储过程
+
+[source,sql]
+----
+
+-- 创建存储过程之前需判断该存储过程是否已存在，若存在则删除
+DROP PROCEDURE IF EXISTS deal;
+-- 创建存储过程
+CREATE PROCEDURE deal(IN sql_origin TEXT)
+BEGIN
+
+    -- 定义变量
+    DECLARE s int DEFAULT 0;
+    DECLARE code text;
+
+    -- 定义游标，并将sql结果集赋值到游标中
+    DECLARE report CURSOR FOR select CODE from table;
+
+    -- 声明当游标遍历完后将标志变量置成某个值
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET s=1;
+
+    -- 打开游标
+    open report;
+
+        -- 将游标中的值赋值给变量，注意：变量名不要和返回的列名同名，变量顺序要和sql结果列的顺序一致
+        fetch report into code;
+
+        -- 当s不等于1，也就是未遍历完时，会一直循环
+        while s<>1 do
+
+             -- 执行业务逻辑
+            set @sql_ready = REPLACE(sql_origin, '${code}', code);
+            prepare sql_ready from @sql_ready;
+            execute sql_ready;
+
+            -- 当s等于1时表明遍历以完成，退出循环
+            fetch report into code;
+        end while;
+    -- 关闭游标
+    close report;
+END;
+
+
+
+-- 指定执行的业务运营商
+-- 创建存储过程之前需判断该存储过程是否已存在，若存在则删除
+DROP PROCEDURE IF EXISTS deal_special;
+-- 创建存储过程
+CREATE PROCEDURE deal_special (IN sql_origin TEXT , IN sp_codes TEXT)
+BEGIN
+
+    -- 求分割符号','的位置
+    DECLARE _index INT;
+
+    -- 定义变量
+    DECLARE code TEXT;
+
+    SET _index = LOCATE(',', sp_codes);
+    WHILE _index > 0
+        DO
+            SET code = LEFT(sp_codes, _index - 1);
+            SET code = TRIM(code);
+
+            -- 执行业务逻辑
+            SET @sql_ready = REPLACE(sql_origin, '${code}', code);
+            PREPARE sql_ready FROM @sql_ready;
+            EXECUTE sql_ready;
+
+            SET sp_codes = SUBSTR(sp_codes FROM _index + 1);
+            SET _index = LOCATE(',', sp_codes);
+        END WHILE;
+
+    SET code = TRIM(sp_codes);
+
+    IF LENGTH(code) >= 0 THEN
+        -- 执行业务逻辑
+        SET @sql_ready = REPLACE(sql_origin, '${code}', code);
+        PREPARE sql_ready FROM @sql_ready;
+        EXECUTE sql_ready;
+    END IF;
+
+END;
+
+----
