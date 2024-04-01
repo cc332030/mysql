@@ -1,0 +1,9 @@
+
+= 设置编码
+
+Illegal mix of collations (utf8mb4_general_ci,IMPLICIT) and (utf8mb4_0900_ai_ci,IMPLICIT) for operation
+
+[source,sql]
+----
+ALTER TABLE tenant_order CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+----
