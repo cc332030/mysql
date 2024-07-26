@@ -8,7 +8,6 @@ ALTER TABLE s_stock_operate_materiel RENAME TO S_STOCK_OPERATE_MATERIEL;
 
 ----
 
-
 批量修改表名
 [source,sql]
 ----
@@ -20,4 +19,16 @@ WHERE
     TABLE_SCHEMA = 'test'
 ;
 
+----
+
+修改编码
+[source,sql]
+----
+# For each database:
+ALTER DATABASE database_name CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+# For each table:
+ALTER TABLE table_name CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+# For each column:
+ALTER TABLE table_name CHANGE column_name column_name VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+# The above line is just an example for a `VARCHAR` column.)
 ----
