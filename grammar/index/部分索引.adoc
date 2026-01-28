@@ -1,0 +1,7 @@
+
+= 部门索引
+
+[source,sql]
+----
+CREATE INDEX idx_active_user ON users (CASE WHEN status = 1 THEN user_id END);
+----
