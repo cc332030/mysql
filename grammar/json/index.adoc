@@ -1,0 +1,16 @@
+
+= json 类型
+
+[source,sql]
+----
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  profile JSON,
+  full_name VARCHAR(255) GENERATED ALWAYS AS (
+    CONCAT(
+      JSON_UNQUOTE(JSON_EXTRACT(profile, '$.first_name')), ' ',
+      JSON_UNQUOTE(JSON_EXTRACT(profile, '$.last_name'))
+    )
+  ) VIRTUAL
+);
+----
