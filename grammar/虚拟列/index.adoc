@@ -13,4 +13,21 @@ CREATE TABLE users (
     )
   ) VIRTUAL
 );
+
+
+-- VIRTUAL 索引，不存储，使用时计算
+-- 1. 添加虚拟列并创建索引
+ALTER TABLE user_extra
+ADD COLUMN v_age INT AS (JSON_EXTRACT(ext_data, '$.age')) VIRTUAL,
+ADD INDEX idx_v_age (v_age);
+
+-- 2. 查询示例（SQL 会自动命中 idx_v_age 索引）
+SELECT * FROM user_extra WHERE v_age > 18;
+
+-- STORED 索引，物理存储，占用空间
+-- 假设我们需要对扩展属性中的“积分 (points)”建立 STORED 索引
+ALTER TABLE user_extra
+ADD COLUMN v_points INT AS (JSON_EXTRACT(ext_data, '$.points')) STORED,
+ADD INDEX idx_points (v_points);
+
 ----
